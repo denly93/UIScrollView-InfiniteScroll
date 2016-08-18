@@ -12,9 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
+    var tabBarController: UITabBarController!
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        tabBarController = window?.rootViewController as! UITabBarController
+        tabBarController.delegate = self
         return true
     }
 
@@ -42,3 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 }
 
+extension AppDelegate: UITabBarControllerDelegate{
+
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if (tabBarController.selectedIndex == 0){
+            let vc = (viewController as! UINavigationController).topViewController as! TableViewController
+            vc.tableView.setContentOffset(CGPointMake(0, 0), animated:true)
+        }
+    }
+
+}
